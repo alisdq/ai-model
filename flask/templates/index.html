@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Emotion Prediction</h1>
+        <form id="emotionForm">
+            <div class="form-group">
+                <label for="textInput">Enter Text:</label>
+                <input type="text" class="form-control" id="textInput" name="text" placeholder="Type something here...">
+            </div>
+            <button type="submit" class="btn btn-primary">Predict Emotion</button>
+        </form>
+        <div class="mt-4">
+            <h3>Prediction:</h3>
+            <p id="predictionOutput" class="font-weight-bold"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#emotionForm').on('submit', function(event){
+                event.preventDefault();
+                $.ajax({
+                    url: '/predict',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response){
+                        $('#predictionOutput').text(response.prediction);
+                    },
+                    error: function(error){
+                        $('#predictionOutput').text('Error predicting emotion.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
