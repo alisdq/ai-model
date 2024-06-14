@@ -91,7 +91,7 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 
 model.fit(x_train_padded, y_train, epochs=2, batch_size=32, validation_data=(x_test_padded, y_test))
 
-model.save('model.h5')
+model.save('model.keras')
 
 def pred(text):
   emotions={0:"sadness",
